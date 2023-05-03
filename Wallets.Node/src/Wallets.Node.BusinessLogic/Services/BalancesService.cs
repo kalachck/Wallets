@@ -27,12 +27,12 @@ namespace Wallets.Node.BusinessLogic.Services
                 addresses.Add(requestItem.Address.ToString());
             }
 
-            var balances = await GetBalancesWebSocket(addresses);
+            var balances = await GetBalancesThroughWebSocketAsync(addresses);
 
             return new WalletResponse() { Balances = { balances } };
         }
 
-        private async Task<List<string>> GetBalancesWebSocket(List<string> addresses)
+        private async Task<List<string>> GetBalancesThroughWebSocketAsync(List<string> addresses)
         {
             var balances = new List<string>();
 
