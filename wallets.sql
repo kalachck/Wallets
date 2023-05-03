@@ -1,0 +1,11 @@
+CREATE DATABASE walletsdb;
+GO
+
+USE walletsdb;
+GO
+
+CREATE TABLE Wallets (
+   Id INT PRIMARY KEY IDENTITY(1,1),
+   Address NVARCHAR(MAX) NOT NULL
+);
+GO

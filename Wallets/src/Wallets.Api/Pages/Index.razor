@@ -1,0 +1,63 @@
+﻿@page "/"
+@inject IWalletService _walletService;
+
+<link href="css/style.css" rel="stylesheet" />
+
+@if (_loading)
+{
+    <div class="loader"></div>
+}
+else
+{
+    <div class="container">
+        <table>
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Address</th>
+                    <th>Balance</th>
+                </tr>
+            </thead>
+
+            @if (Wallets == null || Wallets.Count == 0)
+            {
+                <tbody>
+                    <tr>
+                        <td colspan="3">No data.</td>
+                    </tr>
+                </tbody>
+            }
+            else
+            {
+                <tbody>
+                    @foreach (var wallet in Wallets)
+                    {
+                        <tr>
+                            <td>@wallet.Id</td>
+                            <td>@wallet.Address</td>
+                            <td>@wallet.Balance</td>
+                        </tr>
+                    }
+                </tbody>
+            }
+        </table>
+    </div>
+}
+<button class="btn btn-primary" @onclick="@(async () => await GetBalancesAsync())">Get Balances</button>
+
+@code
+{
+    private List<Wallet> Wallets;
+    private bool _loading;
+
+    public async Task GetBalancesAsync()
+    {
+        _loading = true;
+
+        Wallets = await _walletService.GetBalancesAsync();
+
+        _loading = false;
+
+        StateHasChanged();
+    } 
+}

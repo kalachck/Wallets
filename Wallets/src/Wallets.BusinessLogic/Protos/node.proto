@@ -1,0 +1,17 @@
+﻿syntax = "proto3";
+
+option csharp_namespace = "Wallets.BusinessLogic";
+
+package node;
+
+service GetBalances{
+	rpc Get (stream WalletRequest) returns (WalletResponse);
+}
+
+message WalletRequest{
+   string Address = 1;
+}
+
+message WalletResponse{
+	repeated string Balances = 1;
+}
